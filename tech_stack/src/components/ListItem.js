@@ -1,15 +1,22 @@
 import React, { Component } from "react";
-import { Text, TouchableWithoutFeedback, View } from "react-native";
+import { Text,
+    TouchableWithoutFeedback,
+    View,
+    LayoutAnimation } from "react-native";
 import { connect } from 'react-redux'
 import { CardSection } from "./common";
 import * as actions from  '../actions';
 
 class ListItem extends Component {
+    
+    componentWillUpdate () {
+        LayoutAnimation.spring();
+    }
     renderDescription() {
         const { library, selectedLibraryId } = this.props;
         if (library.item.id === selectedLibraryId) {
             return (
-                <Text>{library.item.description}</Text>
+                <Text style={styles.bodyStyle}>{library.item.description}</Text>
             );
         }
     }
@@ -37,6 +44,10 @@ const styles = {
     titleStyle:{
         fontSize:18,
         paddingLeft: 15
+    },
+    bodyStyle:{
+        paddingLeft: 10,
+        padding: 10,
     }
 }
 
@@ -47,3 +58,5 @@ const mapStateToProps = state => {
 
 
 export default connect(mapStateToProps, actions)(ListItem);
+
+
